@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../vue-desenv.js"></script>
+</head>
+<body>
+  <div id="root">
+    <h3>O pais selecionado é {{pais}}</h3>
+    <img v-bind:src="imagem"> <!-- v-bind faz a ligação do atributo imagem com o img.src -->
+
+    <br>
+    <button v-on:click="mostrarPortugal">Portugal</button> <!-- v-on:click faz a ligação com o metodo -->
+    <button v-on:click="mostrarBrasil">Brasil</button>
+
+  </div>
+  
+  <script>
+    let root = new Vue({
+      el: '#root',
+      data: {
+        pais: '',
+        imagem: ''
+      },
+      methods: {
+        mostrarPortugal: function(){
+          this.pais = 'Portugal'
+          this.imagem = 'imagens/bandeira-portugal.png'
+        },
+
+        mostrarBrasil: function(){
+          this.pais = 'Brasil'
+          this.imagem = 'imagens/bandeira-brasil.png'
+        }
+
+      }
+    });
+
+    root.mostrarPortugal()
+  </script>
+</body>
+</html>

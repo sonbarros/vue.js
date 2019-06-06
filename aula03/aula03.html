@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <!-- Importação do VUE-->
+  <script src="../vue-desenv.js"></script>
+</head>
+<body>
+  <div id="root">
+    <div v-if="visivel">
+      <h3>div if</h3>
+    </div>
+    
+    <div v-else>
+      <h3>div else</h3>
+    </div>
+
+    <button v-on:click="mostrarEsconder">Click</button>
+    
+  </div>
+
+
+  <script>
+    let root = new Vue({
+      el: "#root",
+      data: {
+        nome: "João Ribeiro",
+        visivel: true
+      },
+      methods: {
+        mostrarEsconder: function(){
+          this.visivel = !this.visivel
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

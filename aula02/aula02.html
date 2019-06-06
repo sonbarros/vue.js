@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- Importação do VUE-->
+    <script src="../vue-desenv.js"></script>
+</head>
+<body>
+    <!-- Diretivas v-if com o atributo boolean -->
+    <div id="root">
+        <p>{{nome}}</p>
+
+        <div v-if="visivel">
+            <h4>IF</h4>
+        </div>
+        <div v-else>
+            <h4>ELSE</h4>
+        </div>
+    </div>
+    
+    <script>
+        let root = new Vue({
+            el: "#root",
+            data: {
+                nome: "João Ribeiro",
+                visivel: true
+            },
+
+        });
+    </script>
+    
+</body>
+</html>

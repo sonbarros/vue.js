@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <!-- Importação do VUE-->
+  <script src="../vue-desenv.js"></script>
+</head>
+<body>
+  <!-- For com o atributo data com objetos -->
+  <div id="root">
+    <p v-for="cliente in clientes">O Cliente {{cliente.nome}} possui {{cliente.idade}} anos de idade</p>
+  </div>
+    
+  <script>
+    let root = new Vue({
+      el: "#root",
+      data: {
+        clientes: [
+          {nome: 'Jesus', idade: 45},
+          {nome: 'Anderson', idade: 45},
+          {nome: 'Maria', idade: 45},
+          {nome: 'José', idade: 45},
+        ]
+      },
+    
+    });
+  </script>
+
+</body>
+</html>

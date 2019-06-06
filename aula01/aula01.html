@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- Importação do VUE-->
+    <script src="../vue-desenv.js"></script>
+</head>
+<body>
+    <!-- Apresentação basica do vue -->
+    <div id="root">
+        <p>{{nome}}</p>
+    </div>
+
+    <script>
+        let root = new Vue({
+            el: "#root",
+            data: {
+                nome: "João Ribeiro"
+            }
+        });
+    </script>
+    
+</body>
+</html>
