@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../vue-desenv.js"></script>
+</head>
+<body>
+  <dir id="app">
+    <div>
+      <ul>
+        <li v-for="item in linguagens">{{item.nome}}</li>
+      </ul>
+    </div>
+  </dir>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        linguagens: [
+          {nome: 'javascript'},
+          {nome: 'PHP'},
+          {nome: 'C#'},
+          {nome: 'Java'},
+          {nome: 'Python'},
+          
+        ]
+      }
+    });
+  </script>
+</body>
+</html>
