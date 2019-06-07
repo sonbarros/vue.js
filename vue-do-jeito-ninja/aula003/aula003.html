@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../vue-desenv.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ Título }}</h1>
+      <div v-if="usuario.id == 1">
+        id: {{usuario.id}}
+        nome: {{usuario.nome}}
+        profissao: {{usuario.profissao}}
+      </div>
+      <div v-else>Usuario não existe</div>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        titulo: 'Vue js do jeito ninja',
+        usuario: {
+          id: 2,
+          nome: 'Jon Snom',
+          profissao: 'Ator'
+        }
+      }
+    });
+  </script>
+  
+</body>
+</html>
