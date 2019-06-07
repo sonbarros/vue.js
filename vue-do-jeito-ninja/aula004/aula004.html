@@ -11,7 +11,7 @@
   <dir id="app">
     <div>
       <ul>
-        <li v-for="item in linguagens">{{item.nome}}</li>
+        <li v-for="(item, index) in linguagens">{{index}} {{item}}</li>
       </ul>
     </div>
   </dir>
