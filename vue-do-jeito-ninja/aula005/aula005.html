@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  
+  <!-- Nessa aula vou utilizar arquivo externo para codificar o vue.js -->
+</head>
+<body>
+  <div id="app">
+    <h1> {{title}} </h1>
+
+    <label for="">Nome</label><br>
+    <input type="text" v-model="contact.nome">
+
+    <br>
+
+    <label for="">Telefone</label><br>
+    <input type="text" v-model="contact.telefone">
+
+    <br>
+
+    <label for="">E-mail</label><br>
+    <input type="text" v-model="contact.email">
+
+    <br><br>
+
+    <label for="">Deseja receber nossas novidades?</label><br>
+    <input type="radio" value="sim" v-model="contact.receber_novidade">sim
+    <input type="radio" value="nao" v-model="contact.receber_novidade">não
+
+    <br><br>
+
+    <label for="">Interesses?</label><br>
+    <input type="checkbox" name="interesse" value="Volei" v-model="contact.interesse">Volei
+    <input type="checkbox" name="interesse" value="Programação" v-model="contact.interesse">Programação
+    <input type="checkbox" name="interesse" value="Musica" v-model="contact.interesse">Musica
+
+    <br><br>
+
+    <img v-bind:src="contact.photo" v-bind:alt="contact.alt">
+
+    <label for="">Genero</label><br>
+    <input type="radio" value="F" v-model="contact.genero">F
+    <input type="radio" value="M" v-model="contact.genero">M
+    <br><br>
+
+    <label for="">Como nós conheceu?</label><br>
+    <select name="como_conheceu" v-model="contact.como_conheceu">
+      <option value="google">google</option>
+      <option value="whatsapp">whatsapp</option>
+      <option value="facebook">facebook</option>
+      <option value="instagram">instagram</option>
+    </select>
+
+    <br><br>
+    <input type="text" value="Enviar">
+
+    <hr>
+    Nome: {{contact.nome}} <br>
+    Telefone: {{contact.telefone}} <br>
+    E-mail: {{contact.email}} <br>
+    Receber novidade: {{contact.receber_novidade}} <br>
+    Interesse: {{contact.interesse}} <br>
+    Genero: {{contact.genero}} <br>
+    Conheceu pelo: {{contact.como_conheceu}} <br>
+
+  </div>
+
+
+  <script src="../../vue-desenv.js"></script>
+  <script src="vue-aula005.js"></script>
+  
+</body>
+</html>
