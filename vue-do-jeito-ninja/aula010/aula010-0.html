@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="bt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <dir id="app">
+    {{'Fist: ' + firstName}} <br>
+    {{'Last: ' + lastName}} <br>
+    {{'Full: ' + fullName}}
+  </dir>
+  
+
+  <script src="../../vue-desenv.js"></script>
+  <script>
+    /*
+      Esse primeiro exemplo mostra como tranalhar com o watch
+      na aula 010-1 posso utilizar o computed ao inves de watch
+    */
+    var app = new Vue({
+      el: '#app',
+      data: {
+        firstName: '',
+        lastName: '',
+        fullName: '',
+      },
+
+      watch: {
+        firstName(newFirst){
+          this.fullName = newFirst +' '+ this.lastName;
+        },
+        lastName(newLast){
+          this.fullName = this.firstName +' '+ newLast;
+        }
+      }
+    });
+    
+  </script>
+
+  
+</body>
+</html>
