@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../vue-desenv.js"></script>
+</head>
+<body>
+  
+
+  <div id="app">
+    <ul>
+      <!-- Observe que apos barra vertical é chamado o metodo do filtro -->
+      <li v-for="usuario in usuarios">{{usuario | toUpperCase()}}</li>
+    </ul>
+  </div>
+  
+  <script>
+    /*
+      Aula de filtro
+    */
+    var app = new Vue({
+      el: '#app',
+      data: {
+        usuarios: [
+          'Anderson',
+          'sousa',
+          'pedro'
+        ]
+      },
+      filters: {
+        toUpperCase(str){
+          return str.toUpperCase()
+        }
+      },
+      methods: {
+
+      },
+    });
+  </script>
+  
+</body>
+</html>
