@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  
+  <!-- Vue js -->
+  <script src="../../vue-desenv.js"></script>
+
+  <!-- Importando o bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+  <div id="app">
+    <nav-bar></nav-bar>
+    
+    <ul class="navbar-nav mr-auto">
+      <menu-dropdown v-bind:itens="itensMenu"></menu-dropdown>
+    </ul>
+    
+    
+     
+  </div>
+
+  <template id="nav-bar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          
+          <!-- aqui ocorre a importação no menu para dentro do nav-bar 
+          no caso nav-bar é o pai 
+          e menu-dropdown é o filho
+          -->
+          <menu-dropdown v-bind:itens="itensMenuDropdownArray"></menu-dropdown>
+
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+  </template>
+
+  
+  <template id="menu-dropdown">
+    
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          
+          <!-- aqui no menu-dropdown sempre deve receber um array itens -->
+          <a v-for="item in itens" class="dropdown-item" href="#">{{item.label}}</a>
+          
+          <!-- comentando essa tag que insere uma linha para dividir o menu 
+          <div class="dropdown-divider"></div>
+          -->
+        </div>
+      </li>
+    
+  </template>
+  
+  <script>
+    /*
+      nessa aula vamos passar dados para dentro dos componentes
+    */
+    Vue.component('nav-bar', {
+      template: '#nav-bar',
+      data() {
+        return {
+          itensMenuDropdownArray: [
+            { label : 'Home'},
+            { label : 'Link 1'},
+            { label : 'Link 2'},
+          ]
+        }
+      }
+      /*
+        Aqui tem um macete pois dentro com componete nav-bar 
+        tem um filho que é menu-dropdown que deve receber um array
+        e por isso estou retornando o data() como metodo com o array
+      */
+    });
+    
+    Vue.component('menu-dropdown', {
+      template: "#menu-dropdown", // busca o template
+      
+      /* 
+        Aqui eu informo que para dentro do componente menu-dropdown
+        que vou passar uma propriedade chamada itens e ela será do 
+        tipo de um array. Ou seja, sempre quem chamar <menu-dropdown></..
+        deve passar um array dessa forma:
+        <menu-dropdown v-bind:itens="[{label: 'Sousa'}]"></menu-dropdown>
+        ou 
+        <menu-dropdown v-bind:itens="itensMenu"></menu-dropdown>
+        observe que estou utilizando esse menu dentro da div.app
+      */
+      props: {
+        itens: {
+          type: Array,
+          required: true
+        }
+      }
+    } );
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        titulo: 'Vue js',
+        itensMenu: [
+          {label: 'Anderson'},
+          {label: 'Sousa'},
+          {label: 'Barros'},
+        ]
+      }
+    });
+  </script>
+
+  <!--componente para o funcionamento do bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
