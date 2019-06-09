@@ -10,18 +10,18 @@
 <body>
 
   <div id="app">
-    <h1>{{titulo}}</h1>
-    <menu-bar></menu-bar> Exibe aqui o template
-    <menu-bar></menu-bar> 
+    
+    <lista></lista>
   </div>
 
-  <template id="template-lista">
+  <template id="lista">
     <ul>
-      <li>Item 1</li>
-      <li>Item 2</li>
-      <li>Item 3</li>
-    </ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+      </ul>
   </template>
+  
 
   <script src="../../vue-desenv.js"></script>
   <script>
@@ -29,10 +29,9 @@
      Agora nesse exemplo temos o codigo HTML dentro de uma tag 
      html
     */
-    
-    Vue.component('menu-bar', {
-      template: "#template-lista" // busca o template
-    } );
+    Vue.component('lista', {
+      template: "#lista" // busca o template
+    });
 
     var app = new Vue({
       el: '#app',
@@ -41,7 +40,6 @@
       }
     });
   </script>
-  
-  
+
 </body>
 </html>
