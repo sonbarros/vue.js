@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../vue-desenv.js"></script>
+</head>
+<body>
+
+  <div id="app">
+    <h1>{{titulo}}</h1>
+    <menu-bar></menu-bar>
+  </div>
+
+  
+  <script>
+    /*
+      Veja nesse exemplo que estou definindo um componente
+      onde o primeiro parametro será o nome da tag dentro de div.app
+      ali onde foi localizado a tag sera apresentado o componente
+      na aula012-1 será apresentado outra forma de armazenar 
+      o codigo HTML
+    */
+    
+    Vue.component('menu-bar', {
+      template: '<ul><li>Item 1</li><li>Item 2</li>'
+    } );
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        titulo: 'Vue js'
+      }
+    });
+  </script>
+  
+  
+</body>
+</html>
