@@ -14,15 +14,20 @@
 </head>
 <body>
 
+  <!-- PASSANDO DADOS PARA DENTRO DO COMPONENTE FILHO -->
+
   <div id="app">
     <nav-bar></nav-bar>
     
     <ul class="navbar-nav mr-auto">
       <menu-dropdown v-bind:itens="itensMenu"></menu-dropdown>
     </ul>
-    
-    
-     
+
+    <!-- ou passar o array diretamente aqui -->
+    <ul class="navbar-nav mr-auto">
+      <menu-dropdown v-bind:itens="[{label: 'Avião'},{label: 'Casa'},{label: 'Carro'}]"></menu-dropdown>
+    </ul>
+  
   </div>
 
   <template id="nav-bar">
@@ -84,9 +89,11 @@
       nessa aula vamos passar dados para dentro dos componentes
     */
     Vue.component('nav-bar', {
-      template: '#nav-bar',
+      template: '#nav-bar', // começa pegando o template e inserindo na tag <nav-bar>
       data() {
         return {
+          // é já envia dados por um array, observe que esses dados será enviado para o template
+          // porem o template vai repassar esses dados para outro componente dentro dele
           itensMenuDropdownArray: [
             { label : 'Home'},
             { label : 'Link 1'},
@@ -95,6 +102,7 @@
         }
       }
       /*
+        recapitulando
         Aqui tem um macete pois dentro com componete nav-bar 
         tem um filho que é menu-dropdown que deve receber um array
         e por isso estou retornando o data() como metodo com o array
@@ -102,7 +110,7 @@
     });
     
     Vue.component('menu-dropdown', {
-      template: "#menu-dropdown", // busca o template
+      template: "#menu-dropdown", // busca o template 
       
       /* 
         Aqui eu informo que para dentro do componente menu-dropdown
