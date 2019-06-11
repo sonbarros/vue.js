@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <!-- Importando o Vue -->
+  <script src="../../vue-desenv.js"></script>
+
+  <!-- Importando o bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container" id="app" style="margin-top: 20px">
+    <t-formulario></t-formulario>
+    <br><br>
+    <t-lista></t-lista>
+    
+    
+  </div>
+
+  <template id="t-formulario">
+    <div class="card">
+        <div class="card-block m-3">
+          <div class="form-group">
+            <label for="">Título</label>
+            <input v-model="input_titulo" class="form-control" type="text" name="" id="">
+          </div>
+          <button class="btn btn-primary" v-on:click="enviarFormulario()">Enviar</button>
+        </div>
+      </div>
+  </template>
+
+  <template id="t-lista">
+    <ul class="list-group">
+        <li class="list-group-item" v-for="item in listaArray">{{item.titulo}}</li>
+       
+      </ul>
+  </template>
+
+  <script>
+    Vue.component('t-formulario', {
+      template: '#t-formulario',
+      // Lembrar que data dentro do componente deve ser uma função
+      data: function(){
+        return {
+          input_titulo: '',
+        }
+      },
+      methods: {
+        enviarFormulario() {
+          eventBus.$emit('enviarFormulario', this.input_titulo); 
+          /* quando ocorrer o click vou pegar o o valor do input e encaminhar
+             para eventBus
+          */
+        }
+      }
+    });
+
+    Vue.component('t-lista', {
+      template: '#t-lista',
+      created() {
+        var th = this; // como não consigo usar o this dentro do eventBus pois o javaScript pensa que estou chamando o this de eventBus, faço aqui esse macete
+        eventBus.$on('enviarFormulario', function(valor){
+          if(valor){
+            th.listaArray.push({titulo: valor});
+            // esse if para não deixar valores em branco na lista
+          }
+          
+        });
+        /*
+          Quando criar a lista coloco um evento para monitorar enviarFormulario
+        */
+      },
+      data() {
+        return {
+          listaArray: [
+            {titulo: 'Ir para a feira'}
+          ]
+        }
+      }
+    });
+
+    // Criando esse event Bus, que é um artificil para passar dados 
+    var eventBus = new Vue();
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        //
+      }
+    });
+  </script>
+</body>
+</html>
