@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<script src="../../vue-desenv.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+	 <!-- AULA PARA FALAR DE SLOT -->
+	 <div class="container" id="app">
+	 	<t-card>
+	 		<!-- Aqui dentro da tag é o conteudo dinamico que será passado para dentro das tags slot -->
+	 		<h5 class="card-title">Card title 1	</h5>
+	    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+	    <p class="card-text"><small class="text-muted">Last updated 10 mins ago</small></p>
+	 	</t-card>
+
+	 	<!-- perceba aqui que temos o segundo card, utilizando o mesmo componente e com o conteudo diferente-->
+	 	<t-card>
+	 		<!-- Aqui dentro da tag é o conteudo dinamico que será passado para dentro das tags slot -->
+	 		<h5 class="card-title">Card title 2	</h5>
+	    <p class="card-text">This content is a little bit longer.</p>
+	    <p class="card-text"><small class="text-muted">Last updated 2 mins ago</small></p>
+	 	</t-card>
+
+	 	<t-card>
+	 		<!-- Aqui dentro da tag é o conteudo dinamico que será passado para dentro das tags slot -->
+	 		<h5 class="card-title">Card title 2	</h5>
+	    <p class="card-text">This content is a little bit longer.</p>
+	    <p class="card-text"><small class="text-muted">Last updated 2 mins ago</small></p>
+	 	</t-card>
+
+	 </div>
+
+	 <template id="t-card">
+	 	<div class="card mt-4" >
+		  <!-- <img src="" class="card-img-top" alt="..." style="max-width: 100%; background-color: black "> -->
+		  
+		  <div class="card-header" style="background-color: black">
+		  	<h3 style="color: white">O Senhor é o meu pastor e nada me faltará</h3>
+		  </div>
+		  <div class="card-body">
+		  	<!-- O macete é o seguinte onde for colocado as tags slot será o conteudo dinamico --> 
+		  	<slot></slot>
+		  </div>
+		</div>
+	 </template>
+
+	 <script>
+
+	 	Vue.component('t-card', {
+	 		template: '#t-card'
+	 	});
+
+	 	var app = new Vue({
+	 		el: '#app',
+	 		data: {
+	 			titulo: 'TESTE'
+	 		}
+	 		
+	 	});
+	 </script>
+
+</body>
+</html>
