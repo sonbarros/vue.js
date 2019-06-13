@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<script src="../../vue-desenv.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+	 <!-- AULA PARA FALAR DE SLOT -->
+	 <div class="container" id="app" style="padding-top: 18px">
+	 	<p>{{titulo}}</p>
+	 	<button v-on:click="getUsers()" class="btn btn-primary">Buscar</button>
+
+	 </div>
+
+
+
+	 <script>
+
+    /*
+			AULA DE MIXINS
+
+			basicamente ele vai mesclar os metodos para dentro 
+			do atributo methods da app.
+
+			importante lembrar que você pode fazer sobrescrita de 
+			metodo dentro de methods da app.
+
+			com utilização de de hucks ele ezecuta duas vezes
+			primeiramente vai rolar a execução do mixin e depois 
+			em app
+    */
+	 	var buscarUser = {
+	 		// aqui é um hucks
+	 		created(){
+	 			console.log('Utilização de huck no mixin');
+	 		},
+
+	 		methods: {
+				getUsers: function () {
+	 				console.log('Click aqui!');	
+	 			}
+	 		}
+	 	}
+	 	
+
+	 	var app = new Vue({
+	 		el: '#app',
+
+	 		mixins: [buscarUser],  // inserindo o mixin
+
+	 		data: {
+	 			titulo: 'TESTE'
+	 		},
+	 		methods: {
+	 			getUsers: function () {
+	 				console.log('sobrescrita do metodo getUsers()!');	
+	 			}	
+	 			
+	 		},
+
+	 		// aqui é um hucks
+	 		created(){
+	 			console.log('Utilização de huck no app vue');
+	 		},
+	 		
+	 	});
+	 </script>
+
+</body>
+</html>
