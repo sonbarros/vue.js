@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<script src="../../vue-desenv.js"></script>
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- vue-resource -->
+	<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+</head>
+<body>
+	 <!-- AULA PARA FALAR DE SLOT -->
+	 <div class="container" id="app" style="padding-top: 18px">
+	 	<p>{{titulo}}</p>
+	 	<button v-on:click="getUsers()" class="btn btn-primary">Buscar</button>
+
+	 	<div v-if="response.status == 'error'" class="alert alert-danger">{{response.msg}}</div>
+
+	 	<ul>
+	 		<li v-for="user in users">{{user.name}}</li>
+	 	</ul>
+
+	 </div>
+
+
+
+	 <script>
+
+    /*
+			AULA DE MIXINS
+
+			
+    */
+	 	var buscarUser = {
+	 		methods: {
+				getUsers: function () {
+	 				var url = "http://jsonplaceholder.typicode.com/user";
+	 				this.$http.get(url).then(function(response){
+	 					// aqui poderia ser um post
+	 					// console.log(response); verifica toda a resposta
+	 					//console.log(response.body);  verifica apenas o corpo da resposta, que é os dados
+	 					this.users = response.body;
+	 				}, function(error){
+	 					//console.log(error);
+	 					this.response.status = 'error';
+	 				});
+	 			}
+	 		}
+	 	}
+	 	
+
+	 	var app = new Vue({
+	 		el: '#app',
+
+	 		mixins: [buscarUser],  // inserindo o mixin
+
+	 		data: {
+	 			titulo: 'TESTE',
+	 			users: [],
+	 			response: {
+	 				msg: "Erro ao conectar",
+	 				status: ""
+	 			}
+	 		},
+	 		methods: {
+	 			
+	 		},
+
+	 		
+	 	});
+	 </script>
+
+</body>
+</html>
