@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<script src="../../vue-desenv.js"></script>
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- vue-resource -->
+	<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+</head>
+<body>
+ <!-- AULA PARA FALAR  -->
+ <div class="container" id="app" style="padding-top: 18px">
+ 	<p>{{titulo}}</p>
+ 	
+ 	<!-- Parei a aula por volta dos 7 minutos -->
+
+ 	<ul ref="users">
+ 		<li v-for="(item, index) in users" :key="item.name">
+ 			{{item.name}}
+ 			{{index}}
+ 			<a href="" v-on:click="remover(index)">x</a>
+ 		</li>
+ 	</ul>
+
+ 
+
+ </div>
+
+ 	<template id="t-transf-id">
+			<div>
+				<h4>Transforme</h4>
+				<ul>
+					<li v-for="item in users">{{ item.name }}</li>
+				</ul>
+			</div>
+ 	</template>
+
+ 	<template id="game">
+	 		
+ 	</template>
+
+
+
+	 <script>
+
+    /*
+			AULA 
+
+			
+    */
+	 	
+	 	Vue.component('t-transf', {
+	 		template: "#t-transf-id"
+	 	})
+
+	 	var app = new Vue({
+	 		el: '#app',
+
+	 		data: {
+	 			titulo: 'Aula 20 - key, ref, slot, is',
+	 			users: [
+	 				{name: "Emma"},
+	 				{name: "Sophia"},
+	 				{name: "Isabella"},
+
+	 			],
+	 			
+	 			response: {
+	 				msg: "Erro ao conectar",
+	 				status: ""
+	 			}
+	 		},
+	 		methods: {
+				remover: function(index){
+					this.users.splice(index, 1); // index é a posição que será removido do array
+					// e o segundo parametro é quantos itens será removido
+
+					/*
+						splice (syntax)
+						array.splice(index, howmany, item1, ....., itemX)
+
+						O splice adiciona/remove itens de um array, e retorna os 
+						itens removidos
+
+						* O primeiro parametro especifica a posição que será add/remov
+						* O Segundo parametro -Opcional especifica o numero de itens 
+						para ser removido
+						* Apartir do terceiro parametro é os Itens para ser adicionado em um array
+						
+						ex: 
+						Basicamente quando vou adicionar especifico o segundo parametro com 
+						zero.. 
+						-- fruits.splice(2, 0, "Lemon", "Kiwi");
+
+						Veja que agora alem de adicionar é removido 1 item
+						-- fruits.splice(2, 1, "Lemon", "Kiwi");
+
+						Agora apenas removo dois itens apartir da segunda posição
+						-- fruits.splice(2, 2);
+
+						fonte: https://www.w3schools.com/jsref/jsref_splice.asp
+					*/
+				}
+	 		},
+
+	 		
+	 	});
+	 </script>
+
+</body>
+</html>
