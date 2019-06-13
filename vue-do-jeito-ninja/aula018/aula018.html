@@ -21,6 +21,7 @@
 
 	 	<div v-if="response.status == 'error'" class="alert alert-danger">{{response.msg}}</div>
 
+	 	<div v-if="loader.users">{{'Carregando usuários'}}</div>
 	 	<ul>
 	 		<li v-for="user in users">{{user.name}}</li>
 	 	</ul>
@@ -32,22 +33,33 @@
 	 <script>
 
     /*
-			AULA DE MIXINS
+			AULA DE AJAX COM VUE-RESOURCE
+
+
 
 			
     */
 	 	var buscarUser = {
 	 		methods: {
 				getUsers: function () {
-	 				var url = "http://jsonplaceholder.typicode.com/user";
-	 				this.$http.get(url).then(function(response){
-	 					// aqui poderia ser um post
+	 				this.loader.users = true;
+
+	 				var url = "http://jsonplaceholder.typicode.com/users"; // dados online
+	 				
+	 				// A dica é que o .then e executado apenas apos a resosta do get
+	 				this.$http.get(url) // aqui poderia ser um post
+					.then(function(response){
+	 					
 	 					// console.log(response); verifica toda a resposta
 	 					//console.log(response.body);  verifica apenas o corpo da resposta, que é os dados
 	 					this.users = response.body;
 	 				}, function(error){
 	 					//console.log(error);
 	 					this.response.status = 'error';
+	 				})
+	 				// finally é executado sempre, um bom artificio para mostrar que a pagina esta carregando
+	 				.finally(function(){
+	 					this.loader.users = false;
 	 				});
 	 			}
 	 		}
@@ -62,6 +74,9 @@
 	 		data: {
 	 			titulo: 'TESTE',
 	 			users: [],
+	 			loader: {
+	 				users: false
+	 			},
 	 			response: {
 	 				msg: "Erro ao conectar",
 	 				status: ""
