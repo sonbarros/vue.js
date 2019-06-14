@@ -5,30 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title></title>
-	<script src="../../vue-desenv.js"></script>
+	
 	
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<!-- vue-resource -->
-	<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script> -->
 </head>
 <body>
  <!-- AULA PARA FALAR  -->
  <div class="container" id="app" style="padding-top: 18px">
- 	<p>{{titulo}}</p>
+ 	<h2>{{titulo}}</h2><br>
+
+ 	<h4>Nomes</h4>
  	
  	<!-- Parei a aula por volta dos 7 minutos -->
 
  	<ul ref="users">
- 		<li v-for="(item, index) in users" :key="item.name">
- 			{{item.name}}
- 			{{index}}
- 			<a href="" v-on:click="remover(index)">x</a>
+ 		<li v-for="(item, index) in users" v-bind:key="item.name">
+ 			{{item.name}}<a href="" class="" v-on:click.stop.prevent="remover(index)"> remover</a>
  		</li>
  	</ul>
 
- 
+ 	<!-- 
+ 	<componente-transforme></componente-transforme>
+ 	<componente-game></componente-game>
+  -->
+
+  <!-- Utilizando o 'is' -->
+  <!--
+		É uma forma de utilizar componentes de forma anonima, 
+		e que subistitue o if de certa forma
+		sendo que no atributo :is eu informo qual 
+		componente deve ser exibido. Logo nesse exemplo
+		utilizo a variavel movie para passar o nome 
+		do componente
+  -->
+  <component v-bind:is="movie"></component>
+
 
  </div>
 
@@ -36,17 +51,22 @@
 			<div>
 				<h4>Transforme</h4>
 				<ul>
-					<li v-for="item in users">{{ item.name }}</li>
+					<li v-for="item in jogadores">{{ item }}</li>
 				</ul>
 			</div>
  	</template>
 
- 	<template id="game">
-	 		
+ 	<template id="t-game">
+ 		<div>
+			<h4>Games</h4>
+			<ul>
+				<li v-for="item in games">{{ item }}</li>
+			</ul>
+		</div>
  	</template>
 
 
-
+ 	<script src="../../vue-desenv.js"></script>
 	 <script>
 
     /*
@@ -55,9 +75,33 @@
 			
     */
 	 	
-	 	Vue.component('t-transf', {
-	 		template: "#t-transf-id"
-	 	})
+	 	Vue.component('componente-transforme', {
+	 		template: "#t-transf-id",
+	 		data(){
+	 			return {
+	 				jogadores: [
+	 					'Maria',
+	 					'João',
+	 					'Pedro'
+	 				]
+	 			}
+	 		}
+	 	});
+
+	 	Vue.component('componente-game', {
+	 		template: "#t-game",
+	 		data(){
+	 			return {
+	 				games: [
+	 					'Top guear',
+	 					'Motocicleta',
+	 					'Donkey kong'
+	 				]
+	 				
+	 			}
+	 		}
+	 	});
+
 
 	 	var app = new Vue({
 	 		el: '#app',
@@ -68,17 +112,17 @@
 	 				{name: "Emma"},
 	 				{name: "Sophia"},
 	 				{name: "Isabella"},
-
 	 			],
+	 			movie: 'componente-transforme'
 	 			
-	 			response: {
-	 				msg: "Erro ao conectar",
-	 				status: ""
-	 			}
 	 		},
 	 		methods: {
 				remover: function(index){
+					
+					//this.users.push({name: "xxxx"});
 					this.users.splice(index, 1); // index é a posição que será removido do array
+					//this.users.splice(users.length, 0, 'Anderson');
+
 					// e o segundo parametro é quantos itens será removido
 
 					/*
@@ -107,10 +151,15 @@
 						fonte: https://www.w3schools.com/jsref/jsref_splice.asp
 					*/
 				}
-	 		},
+			},
 
-	 		
-	 	});
+			mounted() {
+				console.log(this.$refs.users); // utilizando refs
+			}
+	 			
+	 		});
+			
+			
 	 </script>
 
 </body>
