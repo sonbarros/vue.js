@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+
+	<!--  
+		Observe que esse bloco de style
+		é para a transição do vue js
+
+		e que as classes começam com .fade.... pois eu definir
+		o id da composição com fade, ex:
+		<transition name="fade">
+	-->
+	<style type="text/css">
+		.fade-enter-active, .fade-leave-active {
+		  transition: opacity .3s;
+		}
+		.fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
+		  opacity: 0;
+		}
+	</style>
+	
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- vue-resource -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script> -->
+</head>
+<body>
+ <!-- AULA PARA FALAR DE TRANSIÇÕES   -->
+ <div class="container" id="app" style="padding-top: 18px">
+ 	<h2>{{titulo}}</h2><br>
+
+ 	<h4>Nomes</h4>
+
+ 	<ul ref="users">
+ 		<li v-for="(item, index) in users" v-bind:key="item.name">
+ 			{{item.name}}<a href="" class="" v-on:click.stop.prevent="remover(index)"> remover</a>
+ 		</li>
+ 	</ul>
+
+
+ 	<select v-model="movie">
+ 		<option value="componente-transforme">Compontente transforme</option>
+ 		<option value="componente-game">Compontente game</option>
+ 	</select>
+
+ 	<!-- 
+ 	<componente-transforme></componente-transforme>
+ 	<componente-game></componente-game>
+  -->
+
+  <!-- Utilizando o 'is' -->
+  <!--
+		É uma forma de utilizar componentes de forma anonima, 
+		e que subistitue o if de certa forma
+		sendo que no atributo :is eu informo qual 
+		componente deve ser exibido. Logo nesse exemplo
+		utilizo a variavel movie para passar o nome 
+		do componente.
+
+		https://br.vuejs.org/v2/guide/transitions.html
+  -->
+
+  <!-- Aqui é o transition - a animação 
+		observe que foi inserido um bloco de 
+		style lá em cima
+  -->
+  <transition name="fade">
+  	<component v-bind:is="movie"></component>
+  </transition>
+
+ 	
+
+
+ </div>
+
+ 	<template id="t-transf-id">
+			<div>
+				<h4>Transforme</h4>
+				<ul>
+					<li v-for="item in jogadores">{{ item }}</li>
+				</ul>
+			</div>
+ 	</template>
+
+ 	<template id="t-game">
+ 		<div>
+			<h4>Games</h4>
+			<ul>
+				<li v-for="item in games">{{ item }}</li>
+			</ul>
+		</div>
+ 	</template>
+
+
+ 	<script src="../../vue-desenv.js"></script>
+	 <script>
+
+    /*
+			AULA 
+
+			
+    */
+	 	
+	 	Vue.component('componente-transforme', {
+	 		template: "#t-transf-id",
+	 		data(){
+	 			return {
+	 				jogadores: [
+	 					'Maria',
+	 					'João',
+	 					'Pedro'
+	 				]
+	 			}
+	 		}
+	 	});
+
+	 	Vue.component('componente-game', {
+	 		template: "#t-game",
+	 		data(){
+	 			return {
+	 				games: [
+	 					'Top guear',
+	 					'Motocicleta',
+	 					'Donkey kong'
+	 				]
+	 				
+	 			}
+	 		}
+	 	});
+
+
+	 	var app = new Vue({
+	 		el: '#app',
+
+	 		data: {
+	 			titulo: 'Aula 21 - Transições',
+	 			users: [
+	 				{name: "Emma"},
+	 				{name: "Sophia"},
+	 				{name: "Isabella"},
+	 			],
+	 			movie: 'componente-transforme'
+	 			
+	 		},
+	 		methods: {
+				remover: function(index){
+					
+					//this.users.push({name: "xxxx"});
+					this.users.splice(index, 1); // index é a posição que será removido do array
+					//this.users.splice(users.length, 0, 'Anderson');
+
+					// e o segundo parametro é quantos itens será removido
+
+					/*
+						splice (syntax)
+						array.splice(index, howmany, item1, ....., itemX)
+
+						O splice adiciona/remove itens de um array, e retorna os 
+						itens removidos
+
+						* O primeiro parametro especifica a posição que será add/remov
+						* O Segundo parametro -Opcional especifica o numero de itens 
+						para ser removido
+						* Apartir do terceiro parametro é os Itens para ser adicionado em um array
+						
+						ex: 
+						Basicamente quando vou adicionar especifico o segundo parametro com 
+						zero.. 
+						-- fruits.splice(2, 0, "Lemon", "Kiwi");
+
+						Veja que agora alem de adicionar é removido 1 item
+						-- fruits.splice(2, 1, "Lemon", "Kiwi");
+
+						Agora apenas removo dois itens apartir da segunda posição
+						-- fruits.splice(2, 2);
+
+						fonte: https://www.w3schools.com/jsref/jsref_splice.asp
+					*/
+				}
+			},
+
+			mounted() {
+				console.log(this.$refs.users); // utilizando refs
+			}
+	 			
+	 		});
+			
+			
+	 </script>
+
+</body>
+</html>
