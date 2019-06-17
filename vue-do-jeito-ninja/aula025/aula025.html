@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+
+	<!--  
+		Observe que esse bloco de style
+		é para a transição do vue js
+
+		e que as classes começam com .fade.... pois eu definir
+		o id da composição com fade, ex:
+		<transition name="fade">
+	-->
+	<style type="text/css">
+		.fade-enter-active, .fade-leave-active {
+		  transition: opacity .3s;
+		}
+		.fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
+		  opacity: 0;
+		}
+	</style>
+	
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- vue-resource -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script> -->
+
+	<!-- Vue Router -->
+
+</head>
+<body>
+ <!-- AULA PARA FALAR DE ROTAS NOMEADAS    -->
+ <div class="container" id="app" style="padding-top: 18px">
+ 	<h2>{{titulo}}</h2><br>
+
+ 	<h4>Routes</h4>
+
+ 	<!-- ROTAS NOMEADAS -->
+ 	<!-- LEMBRANDO QUE PARA FUNCIONAR É NECESSARIO TRABALHA NO SERVIDOR WEB  -->
+
+ 	<!--
+ 	<router-link to="/transformers">Transformes &nbsp;  nome rota  </router-link>
+ 	<router-link to="/game-of-thrones">Game of Thrones nome rota </router-link> -->
+
+ 	<!-- Aplicando o objeto name para trabalhar com rotas nomeadas -->
+ 	<router-link v-bind:to="{name: 'rota-transforme'}">Transformes &nbsp;</router-link>
+ 	<router-link v-bind:to="{name: 'rota-game'}">Game of Thrones</router-link>
+
+
+ 	<!-- tags que iram exibir na tela o componente de acordo com a rota escolhida -->
+ 	<router-view></router-view>
+
+
+
+ </div>
+
+	<template id="transformersContent">
+		<div>
+			<h3>Conteúdo Transformes</h3>
+			{{ $route.params.name }}
+		</div>
+	</template> 
+
+ 	<template id="t-transf-id">
+			<div class="row">
+				<div class="col">
+					<h4>Transforme</h4>
+					<ul>
+						<li v-for="item in jogadores"><router-link v-bind:to="{ name : 'subrota-transforme-content', params: { name: item.slog}}"> {{item.name}} </router-link> </li>
+					</ul>
+				</div>
+				<div class="col">
+					<router-view></router-view>
+				</div>
+				
+			</div>
+ 	</template>
+
+ 	<template id="t-game">
+ 		<div>
+			<h4>Games</h4>
+			<ul>
+				<li v-for="item in games">{{ item }}</li>
+			</ul>
+		</div>
+ 	</template>
+
+
+ 	<script src="../../vue-desenv.js"></script>
+ 	<script src="../../vue-router.js"></script>
+	 <script>
+
+    /*
+			AULA Router Sub rotas e rotas com parâmetros
+    */
+
+    var TransformersContent = Vue.component('transformers-content', {
+    	template: '#transformersContent',
+    });
+	 	
+	 	// essa variavel é para fazer a ligação com o router
+	 	var Transformers = Vue.component('componente-transforme', {
+	 		template: "#t-transf-id",
+	 		data(){
+	 			return {
+	 				jogadores: [
+	 					{ name: 'Maria', slog: 'maria'},
+	 					{ name: 'João', slog: 'joao'},
+	 					{ name: 'pedro', slog: 'pedro'}
+	 				]
+	 			}
+	 		}
+	 	});
+
+    // essa variavel é para fazer a ligação com o router
+	 	var GameOfThrones = 	Vue.component('componente-game', {
+	 		template: "#t-game",
+	 		data(){
+	 			return {
+	 				games: [
+	 					'Top guear',
+	 					'Motocicleta',
+	 					'Donkey kong'
+	 				]
+	 				
+	 			}
+	 		}
+	 	});
+
+	 	// para utilizar o vue.router
+	 	var router = new VueRouter({
+	 		mode: 'history', // remove a serquilia ou jogo da velha da rota
+	 		routes: [
+	 			// o primeiro parametro é a rota
+	 			// o segundo parametro é o component ou seja faz uma livação com o
+	 			// component aqui da instancia vue.. Vue.component()
+	 			{ path: '/transformers', name: 'rota-transforme', component: Transformers,
+	 				
+	 				// Criando subrotas 
+	 				children: [
+	 					{ path: ':name', name: 'subrota-transforme-content', component: TransformersContent},
+	 					// aqui eu poderia ter mais sub rotas
+	 				]
+	 			}, 
+	 			{ path: '/game-of-thrones', name: 'rota-game', component: GameOfThrones },
+	 		],
+	 		
+	 	});
+
+
+	 	var app = new Vue({
+	 		el: '#app',
+	 		router, // para funcionar o router 
+
+	 		created() {
+	 			/*
+						Aqui acontece o redirecionamento, na hora que ocorre esse ruck
+						ele ja chama essa rota 
+	 			*/
+	 			this.$router.push({ name: 'subrota-transforme-content', params: { name: 'pedro'} });
+	 		},
+
+	 		data: {
+	 			titulo: 'Aula 25 - Rotas Navegação Automática',
+	 			users: [
+	 				{name: "Emma"},
+	 				{name: "Sophia"},
+	 				{name: "Isabella"},
+	 			],
+	 			movie: 'componente-transforme'
+	 			
+	 		},
+	 		methods: {
+				remover: function(index){
+					
+					//this.users.push({name: "xxxx"});
+					this.users.splice(index, 1); // index é a posição que será removido do array
+					//this.users.splice(users.length, 0, 'Anderson');
+
+					// e o segundo parametro é quantos itens será removido
+
+					/*
+						splice (syntax)
+						array.splice(index, howmany, item1, ....., itemX)
+
+						O splice adiciona/remove itens de um array, e retorna os 
+						itens removidos
+
+						* O primeiro parametro especifica a posição que será add/remov
+						* O Segundo parametro -Opcional especifica o numero de itens 
+						para ser removido
+						* Apartir do terceiro parametro é os Itens para ser adicionado em um array
+						
+						ex: 
+						Basicamente quando vou adicionar especifico o segundo parametro com 
+						zero.. 
+						-- fruits.splice(2, 0, "Lemon", "Kiwi");
+
+						Veja que agora alem de adicionar é removido 1 item
+						-- fruits.splice(2, 1, "Lemon", "Kiwi");
+
+						Agora apenas removo dois itens apartir da segunda posição
+						-- fruits.splice(2, 2);
+
+						fonte: https://www.w3schools.com/jsref/jsref_splice.asp
+					*/
+				}
+			},
+
+			/*
+			mounted() {
+				console.log(this.$refs.users); // utilizando refs
+			}
+			*/
+	 			
+	 		});
+			
+			
+	 </script>
+
+</body>
+</html>
