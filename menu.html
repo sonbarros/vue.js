@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-desenv.js"></script>
+</head>
+<body>
+    
+    <div id="root">
+        <h1>Menu</h1>
+        <ul>
+            <li v-for="lista in listaMenu"><a v-bind:href="lista.link">{{lista.menu}}</a></li>
+        </ul>
+    </div>
+    
+
+    <script>
+        var app = new Vue({
+            el: '#root',
+            data : {
+                listaMenu : [
+                    {
+                        menu: 'Aula 14 - Introdução aos filters', 
+                        link: 'aula14/'
+                    }
+                ]
+            }
+        });
+    </script>
+</body>
+</html>

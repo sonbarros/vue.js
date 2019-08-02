@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue-desenv.js"></script>
+</head>
+<body>
+    <h1>Introdução aos filters</h1>
+    <div id="root">
+        
+        
+        <input type="text" v-model="novoNome"><button v-on:click="adicionar">Add</button>
+
+        <ul>
+            <li v-for="nome in nomes">{{nome | capitalizar}}</li>
+        </ul>
+    </div>
+
+    <hr>
+    <a href="../menu.html">Menu</a>
+
+        
+    <script>
+    
+        var app = new Vue({
+            el: '#root',
+            data : {
+                novoNome : '',
+                nomes : []
+            },
+            methods : {
+                adicionar: function(){
+                    
+                    this.nomes.push(this.novoNome);
+                }
+            },
+            filters : {
+                capitalizar : function(value){
+                    return value.toUpperCase();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
