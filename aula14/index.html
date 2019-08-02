@@ -11,36 +11,89 @@
     <h1>Introdução aos filters</h1>
     <div id="root">
         
-        
-        <input type="text" v-model="novoNome"><button v-on:click="adicionar">Add</button>
-
+        <p>Ao adicionar será adicinado com letras maiusculas</p>
+        <input type="text" v-model="novoNome"><button v-on:click="adicionarMaiusculos">Add</button>
         <ul>
-            <li v-for="nome in nomes">{{nome | capitalizar}}</li>
+            <li v-for="nome in nomesMaiusculos">{{nome | LetraMaiuscula}}</li>
         </ul>
+
+
+        <!-- Agora aqui já vou acertando no proprio input -->
+        <p>Ao adicionar será adicinado com a primeira letras em maiuscula</p>
+        <p>Indicado para nomes proprios, ja estou executando diretamente no input</p>
+        <input  v-on:input="primeiraLetraMaiusculaNoinput" type="text" v-model="novoNome2"><button v-on:click="adicionarPrimeiraLetraMaiusculo">Add</button>
+        <ul>
+            <li v-for="nome in primeiraLetraMaiusculas">{{nome | primeiraLetraMaiuscula}}</li>
+        </ul>
+
+
+        
     </div>
 
     <hr>
-    <a href="../menu.html">Menu</a>
-
-        
+    <ul>
+        <li><a href="../menu.html">Menu</a></li>
+        <li><a href="https://github.com/sonbarros/vue.js/blob/master/aula14/index.html" target="_blank">github.com</a></li>
+        <li><a href="https://www.youtube.com/watch?v=c9iS7--efnw&list=PLXik_5Br-zO_xQHAH9GrNR1gAefYWaKxz&index=14" target="_blank">youtube.com</a></li>
+    </ul>
+    
+    
     <script>
     
         var app = new Vue({
             el: '#root',
             data : {
                 novoNome : '',
-                nomes : []
+                novoNome2 : '',
+                nomesMaiusculos : [],
+                primeiraLetraMaiusculas : [],
             },
             methods : {
-                adicionar: function(){
+                adicionarMaiusculos: function(){
                     
-                    this.nomes.push(this.novoNome);
+                    this.nomesMaiusculos.push(this.novoNome);
+                },
+                adicionarPrimeiraLetraMaiusculo: function(){
+                    
+                    this.primeiraLetraMaiusculas.push(this.novoNome2);
+                },
+
+                primeiraLetraMaiuscula : function(value){
+                    
+                    
+                    var textArray = value.split(' ');
+                    //var textArray = value.toLowerCase().split(' ');
+                    
+    
+                    var index;
+                    for(index = 0; index < textArray.length; index++){
+                        
+                        if(textArray[index].length == 1){
+                            continue; // Quando for apenas uma letra eu não transformo em maiuscula
+                        }
+                        textArray[index] = textArray[index].charAt(0).toUpperCase() + textArray[index].slice(1).toLowerCase();
+                        
+                    
+                    }
+
+
+                    return textArray.toString().replace(/,/g, ' '); // forma de fazer o replaceAll no javascript
+                },
+
+                primeiraLetraMaiusculaNoinput(){
+                    this.novoNome2 = this.primeiraLetraMaiuscula(this.novoNome2);
+
                 }
             },
             filters : {
-                capitalizar : function(value){
+                LetraMaiuscula : function(value){
                     return value.toUpperCase();
+                },
+                primeiraLetraMaiuscula : function(value){
+                    
+                    return app.primeiraLetraMaiuscula(value); // chamo o methodo
                 }
+                
             }
         });
     </script>
