@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue-desenv.js"></script>
+</head>
+<body>
+    <h1>Computed ou Methodos ? </h1>
+    <div id="root">
+        <label for="">Primeiro nome</label>
+        <input type="text" v-model="firstName">
+        <br>
+
+        <label for="">Ultimo nome</label>
+        <input type="text" v-model="lastName">
+
+        <p>Meu nome é {{fullNameComputed}}</p>
+    </div>
+
+    <hr>
+        
+        <p>Para testar a diferença entre computed e methods o ideal é abrir o console e 
+            chamar o metodo e chamar o computed e veja que o computed sómente processa a função 
+            quando as variaveis que ela depende são alteradas</p>
+    <hr>
+    <ul>
+        <li><a href="../menu.html">Menu</a></li>
+        <li><a href="https://github.com/sonbarros/vue.js/blob/master/aula14/index.html" target="_blank">github.com</a></li>
+        <li>fonte: <a href="https://www.youtube.com/watch?v=IhMuzMBfUIM&list=PLXik_5Br-zO_xQHAH9GrNR1gAefYWaKxz&index=15" target="_blank">youtube.com</a></li>
+    </ul>
+    
+
+
+    <script>
+        var app = new Vue({
+            el: '#root',
+            data: {
+                firstName : '',
+                lastName : ''
+            },
+            computed : {
+                fullNameComputed : function(){
+                    console.log('estou no computed');
+                    return this.firstName + ' ' + this.lastName;
+                }
+            },
+            methods : {
+                fullNameMethods : function(){
+                    console.log('estou no methods');
+                    return this.firstName + ' ' + this.lastName;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
