@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue-desenv.js"></script>
+</head>
+<body>
+    <!-- Aula sobre customização de componentes -->
+    <div id="app">
+        <pai></pai>
+    </div>
+
+    <script>
+        Vue.component('pai', {
+            template: 
+            '<div><h1>Component Pai</h1> <filho></filho> </div>',  // deve conter apenas uma tag raiz
+        });
+
+        Vue.component('filho', {
+            template: '<div><h1>Component filho</h1></div>',
+        });
+
+        var app = new Vue({
+            el: '#app',
+            component: [
+                'pai',
+                'filho'
+            ] // 
+        });
+    </script>
+</body>
+</html>

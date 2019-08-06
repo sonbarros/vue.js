@@ -12,7 +12,22 @@
     <div id="root">
         <h1>Menu</h1>
         <ul>
-            <li v-for="lista in listaMenu"><a v-bind:href="lista.link">{{lista.menu}}</a></li>
+            <li v-for="(lista, index) in listaMenu">
+                <a v-bind:href="lista.link">{{lista.menu}}</a> 
+                <a v-show="!lista.showTable" href="" v-on:click.stop.prevent="mostrarTabela(index)"> +</a>
+                <a v-show="lista.showTable" href="" v-on:click.stop.prevent="esconderTabela(index)"> -</a>
+
+                    <table v-show="lista.showTable">
+                        <tbody>
+                            <tr v-for="conteudo in lista.conteudo">
+                                <td><ul><li>{{conteudo.titulo}}</li></ul></td>
+                                <td>{{conteudo.descricao}}</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </ul>
+            </li>
         </ul>
     </div>
     
@@ -21,7 +36,27 @@
         var app = new Vue({
             el: '#root',
             data : {
-                listaMenu : [
+                listaMenu : []
+            },
+            methods: {
+                mostrarTabela : function(index){
+                    var obj = this.listaMenu[index];
+                    obj.showTable = true;
+
+                    
+                    Vue.set(this.listaMenu, index, obj);
+
+                },
+                esconderTabela : function(index){
+                    var obj = this.listaMenu[index];
+                    obj.showTable = false;
+                    
+                    Vue.set(this.listaMenu, index, obj);
+
+                }
+            },
+            mounted : function(){
+                this.listaMenu.push(
                     {
                         menu: 'Aula 14 - Introdução aos filters', 
                         link: 'aula14/'
@@ -30,7 +65,46 @@
                         menu: 'Aula 15 - Computed Properties', 
                         link: 'aula15/'
                     },
-                ]
+                    
+                    {
+                        menu: 'Aula 16 - Introdução a custom components',
+                        link: 'Aula16/'                    
+                    },
+                    {
+                        menu: 'Aula 17 - Componentes dentro de componentes',
+                        link: 'Aula17/index.html',
+                        conteudo: [
+                            
+                        ]                    
+                    },
+                    {
+                        menu: 'Aula 18 - Introdução a props',
+                        link: 'Aula18/',    
+                        conteudo: [
+                            { titulo: 'Props simples'}, 
+                            { titulo: 'v-bind'}, 
+                            { titulo: 'v-for'}, 
+                            { titulo: 'O template fica dentro Vue.component'}]
+                    },
+                    {
+                        menu: 'Aula 19 - Instalação da vue - cli',
+                        link: '#',
+                        conteudo: [
+                            { titulo: 'Site oficial', descricao: '<a href="https://cli.vuejs.org/">https://cli.vuejs.org/</a>'}, 
+                            { titulo: '1º Instalar o node.js'}, 
+                            { titulo: '2º Instalar o vue - cli', descricao: 'npm install -g @vue/cli'}, 
+                            { titulo: 'O template fica dentro Vue.component'}]
+                        
+                    }
+                );
+                
+                
+                var index;
+                for(index in this.listaMenu){
+                    var obj = this.listaMenu[index];
+                    obj.showTable = false;
+                }
+                
             }
         });
     </script>
