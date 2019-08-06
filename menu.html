@@ -21,7 +21,8 @@
                         <tbody>
                             <tr v-for="conteudo in lista.conteudo">
                                 <td><ul><li>{{conteudo.titulo}}</li></ul></td>
-                                <td>{{conteudo.descricao}}</td>
+                                <td v-show="typeof conteudo.descricao != 'undefined'">|</td>
+                                <td v-html="conteudo.descricao"></td>
                             </tr>
                             
                         </tbody>
@@ -90,10 +91,12 @@
                         menu: 'Aula 19 - Instalação da vue - cli',
                         link: '#',
                         conteudo: [
-                            { titulo: 'Site oficial', descricao: '<a href="https://cli.vuejs.org/">https://cli.vuejs.org/</a>'}, 
+                            { titulo: 'Site oficial', descricao: '<a href="https://cli.vuejs.org/">link</a>'}, 
                             { titulo: '1º Instalar o node.js'}, 
                             { titulo: '2º Instalar o vue - cli', descricao: 'npm install -g @vue/cli'}, 
-                            { titulo: 'O template fica dentro Vue.component'}]
+                            { titulo: '3º Criar projeto', descricao: 'vue create my-project'}
+                            
+                        ]
                         
                     }
                 );
