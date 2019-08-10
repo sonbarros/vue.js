@@ -21,7 +21,13 @@
         <!-- Agora aqui já vou acertando no proprio input -->
         <p>Ao adicionar será adicinado com a primeira letras em maiuscula</p>
         <p>Indicado para nomes proprios, ja estou executando diretamente no input</p>
-        <input  v-on:input="primeiraLetraMaiusculaNoinput" type="text" v-model="novoNome2"><button v-on:click="adicionarPrimeiraLetraMaiusculo">Add</button>
+        
+        <!-- 
+            para executar a alteração no input preciso apenas do v-on:input
+            e a ligação com v-model
+        -->
+        <input  v-on:input="primeiraLetraMaiusculaNoinput" type="text" v-model="novoNome2">
+        <button v-on:click="adicionarPrimeiraLetraMaiusculo">Add</button>
         <ul>
             <li v-for="nome in primeiraLetraMaiusculas">{{nome | primeiraLetraMaiuscula}}</li>
         </ul>
