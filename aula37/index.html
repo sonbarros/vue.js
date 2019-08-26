@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue-desenv.js"></script>
+</head>
+<body>
+    <!-- COMUNICAÇÃO DE COMPONENTE FILHO PARA PAI -->
+
+    <div id="root">
+        <p>Component pai :: nome: {{rei}}</p>
+        <button @click="alterar()">Alterar</button>
+
+        <!-- Observe como é capturado o evento aqui com o atributo v-on -->
+        <componente-filho :nome="rei" v-on:nome-alterado="rei = $event"></componente-filho>
+    </div>
+
+    <template id="componente-filho">
+        <div>
+            <p>Component filho :: nome {{nome}}</p>
+            <button @click="alterar">Alterar</button>
+        </div>
+    </template>
+    
+    <script>
+        Vue.component('componente-filho', {
+            template: '#componente-filho',
+            props : ['nome'],
+            methods : {
+                alterar: function(){
+                    this.nome = 'Cristo Jesus';
+                    this.$emit('nome-alterado', this.nome); // lança o evento 'nome-alterado'
+                    /* 
+                        ESTA AULA
+                        Mostar como passar dados de filho para pai, 
+                        no caso é utilizado o $emit para que seja capturado
+                        esse evento em pai
+                    */
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: '#root',
+            data : {
+                rei : "Jesus"
+            },
+            methods : {
+                alterar: function(){
+                    this.rei = 'Cristo'
+                }
+            }
+        });
+    </script>
+</body>
+</html>
