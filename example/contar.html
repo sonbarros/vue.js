@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- Importação do VUE-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
+</head>
+<body>
+    <!-- Apresentação basica do vue -->
+    <div id="root">
+        <p v-for="value in indexArray">{{value}}</p>
+    </div>
+
+    <script>
+        let root = new Vue({
+            el: "#root",
+            data: {
+                indexArray: []    
+            },
+            methods: {
+                comeceContar: function(){
+                    var x;
+                    for(x = 0; x < 11; x++) {
+                        this.indexArray.push(x)
+                    }
+                }
+            },
+            mounted: function() {
+                this.comeceContar();
+            }
+        });
+    </script>
+    
+</body>
+</html>
